@@ -1,0 +1,1314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="robot">
+  <!-- ros_control plugin -->
+  <gazebo>
+    <plugin filename="liblegged_hw_sim.so" name="gazebo_ros_control">
+      <robotNamespace>/</robotNamespace>
+      <robotParam>legged_robot_description</robotParam>
+      <robotSimType>legged_gazebo/LeggedHWSim</robotSimType>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin filename="libgazebo_ros_p3d.so" name="p3d_base_controller">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>1000.0</updateRate>
+      <bodyName>base</bodyName>
+      <topicName>ground_truth/state</topicName>
+      <gaussianNoise>0</gaussianNoise>
+      <frameName>world</frameName>
+      <xyzOffsets>0 0 0</xyzOffsets>
+      <rpyOffsets>0 0 0</rpyOffsets>
+    </plugin>
+  </gazebo>
+  <gazebo reference="base">
+    <gravity>true</gravity>
+    <sensor name="imu_sensor" type="imu">
+      <always_on>true</always_on>
+      <update_rate>1000</update_rate>
+      <visualize>true</visualize>
+      <topic>__default_topic__</topic>
+      <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+        <topicName>imu</topicName>
+        <bodyName>base</bodyName>
+        <updateRateHZ>1000.0</updateRateHZ>
+        <gaussianNoise>0.0</gaussianNoise>
+        <xyzOffset>0 0 0</xyzOffset>
+        <rpyOffset>0 0 0</rpyOffset>
+        <frameName>base</frameName>
+        <initialOrientationAsReference>false</initialOrientationAsReference>
+      </plugin>
+      <pose>0 0 0 0 0 0</pose>
+    </sensor>
+  </gazebo>
+  <gazebo reference="LF_FOOT">
+    <mu1>0.6</mu1>
+    <mu2>0.6</mu2>
+    <self_collide>1</self_collide>
+    <material>Gazebo/DarkGrey</material>
+    <kp value="1000000.0"/>
+    <kd value="100.0"/>
+  </gazebo>
+  <gazebo reference="RF_FOOT">
+    <mu1>0.6</mu1>
+    <mu2>0.6</mu2>
+    <self_collide>1</self_collide>
+    <material>Gazebo/DarkGrey</material>
+    <kp value="1000000.0"/>
+    <kd value="100.0"/>
+  </gazebo>
+  <gazebo reference="LH_FOOT">
+    <mu1>0.6</mu1>
+    <mu2>0.6</mu2>
+    <self_collide>1</self_collide>
+    <material>Gazebo/DarkGrey</material>
+    <kp value="1000000.0"/>
+    <kd value="100.0"/>
+  </gazebo>
+  <gazebo reference="RH_FOOT">
+    <mu1>0.6</mu1>
+    <mu2>0.6</mu2>
+    <self_collide>1</self_collide>
+    <material>Gazebo/DarkGrey</material>
+    <kp value="1000000.0"/>
+    <kd value="100.0"/>
+  </gazebo>
+    <!-- Imu is fixed to the base link -->
+  <joint name="unitree_imu_joint" type="fixed">
+    <origin rpy="0. 0. 0." xyz="0. 0. 0."/>
+    <parent link="base"/>
+    <child link="unitree_imu"/>
+  </joint>
+  <!-- Imu link -->
+  <link name="unitree_imu">
+    <inertial>
+      <mass value="0.01"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.000001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.000001"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.015 0.015 0.004"/>
+      </geometry>
+    </visual>
+    <material name="orange">
+      <color rgba="255 108 10 255"/>
+    </material>
+  </link>
+  <gazebo reference="unitree_imu">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+  <gazebo reference="unitree_imu_joint">
+    <disableFixedJointLumping>true</disableFixedJointLumping>
+  </gazebo>
+  <link
+    name="base">
+    <inertial>
+      <origin
+        xyz="2.6764E-18 -4.0146E-18 -0.00068562"
+        rpy="0 0 0" />
+      <mass
+        value="15.33" />
+      <inertia
+        ixx="0.043105"
+        ixy="9.4615E-18"
+        ixz="-1.0457E-19"
+        iyy="0.19241"
+        iyz="1.9713E-18"
+        izz="0.21611" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/base_link.STL" />
+          <!-- <box size="0.48200 0.21200 0.11200"/> -->
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <!-- <mesh
+          filename="package://sirius_belt/meshes/base_link.STL" /> -->
+          <box size="0.48200 0.21200 0.11200"/>
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="LF_ABAD">
+    <inertial>
+      <origin
+        xyz="0.025819 -7.2618E-08 0.052428"
+        rpy="0 0 0" />
+      <mass
+        value="1.9747" />
+      <inertia
+        ixx="0.0022447"
+        ixy="9.2291E-09"
+        ixz="-0.00015635"
+        iyy="0.0032013"
+        iyz="1.7056E-11"
+        izz="0.0030774" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/LF_ABAD.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <!-- <visual name="LF_hip_visual1">
+      <origin rpy="1.57080 -0.00000 -1.57080" xyz="-0.00291 0.00000 0.05744"/>
+      <geometry>
+        <cylinder radius="0.04850" length="0.05035"/>
+      </geometry>
+    </visual>
+    <visual name="LF_hip_visual2">
+      <origin rpy="1.57080 -0.00000 -1.57080" xyz="0.05325 0.00000 0.05744"/>
+      <geometry>
+        <cylinder radius="0.04850" length="0.05035"/>
+      </geometry>
+    </visual> -->
+    <collision name="LF_hip_collision1">
+      <origin rpy="1.57080 -0.00000 -1.57080" xyz="-0.00291 0.00000 0.05744"/>
+      <geometry>
+        <cylinder radius="0.04850" length="0.05035"/>
+      </geometry>
+    </collision>
+    <collision name="LF_hip_collision2">
+      <origin rpy="1.57080 -0.00000 -1.57080" xyz="0.05325 0.00000 0.05744"/>
+      <geometry>
+        <cylinder radius="0.04850" length="0.05035"/>
+      </geometry>
+    </collision>
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/LF_ABAD.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint
+    name="LF_HAA"
+    type="revolute">
+    <origin
+      xyz="0.241 0.055 0"
+      rpy="1.5708 0 1.5708" />
+    <parent
+      link="base" />
+    <child
+      link="LF_ABAD" />
+    <axis
+      xyz="0 0 -1" />
+    <dynamics damping="0.0" friction="0.0"/>
+    <limit effort="35" lower="-0.7853981633974483" upper="0.7853981633974483" velocity="45"/>
+  </joint>
+  <link
+    name="LF_HIP">
+    <inertial>
+      <origin
+        xyz="0.11665 -4.7257E-06 0.0035029"
+        rpy="0 0 0" />
+      <mass
+        value="1.0489" />
+      <inertia
+        ixx="0.0006063"
+        ixy="-4.3731E-07"
+        ixz="4.3929E-05"
+        iyy="0.012351"
+        iyz="-1.2361E-08"
+        izz="0.012546" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/LF_HIP.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <!-- <visual name="LF_thigh_visual1">
+      <origin rpy="3.14159 0.00000 3.14159" xyz="0.00031 -0.00001 0.00374"/>
+      <geometry>
+        <cylinder radius="0.04400" length="0.04596"/>
+      </geometry>
+    </visual>
+    <visual name="LF_thigh_visual2">
+      <origin rpy="0.01586 -0.00000 0.00000" xyz="0.13941 -0.00000 0.00258"/>
+      <geometry>
+        <box size="0.18382 0.05465 0.04415"/>
+      </geometry>
+    </visual> -->
+    <collision name="LF_thigh_collision1">
+      <origin rpy="3.14159 0.00000 3.14159" xyz="0.00031 -0.00001 0.00374"/>
+      <geometry>
+        <cylinder radius="0.04400" length="0.04596"/>
+      </geometry>
+    </collision>
+    <collision name="LF_thigh_collision2">
+      <origin rpy="0.01586 -0.00000 0.00000" xyz="0.13941 -0.00000 0.00258"/>
+      <geometry>
+        <box size="0.18382 0.05465 0.04415"/>
+      </geometry>
+    </collision>
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/LF_HIP.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint
+    name="LF_HFE"
+    type="revolute">
+    <origin
+      xyz="0.12545 0 0.055499"
+      rpy="-1.5708 0 -1.5708" />
+    <parent
+      link="LF_ABAD" />
+    <child
+      link="LF_HIP" />
+    <axis
+      xyz="0 0 1" />
+    <dynamics damping="0.0" friction="0.0"/>
+    <limit effort="35" lower="-0.8726646259971648" upper="1.7453292519943295" velocity="45"/>
+  </joint>
+  <link
+    name="LF_KNEE">
+    <inertial>
+      <origin
+        xyz="0.063196 0.011258 -3.1352E-08"
+        rpy="0 0 0" />
+      <mass
+        value="0.39106" />
+      <inertia
+        ixx="0.00023075"
+        ixy="0.00012831"
+        ixz="-6.1434E-09"
+        iyy="0.0036579"
+        iyz="1.8119E-09"
+        izz="0.003834" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/LF_KNEE.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.65882 0.61961 0.56078 1" />
+      </material>
+    </visual>
+    <!-- <visual name="LF_calf_visual1">
+      <origin rpy="3.13390 -0.00000 -0.00000" xyz="-0.00002 -0.00062 0.00280"/>
+      <geometry>
+        <cylinder radius="0.03718" length="0.04401"/>
+      </geometry>
+    </visual>
+    <visual name="LF_calf_visual2">
+      <origin rpy="0 1.5696003 -0.2349998" xyz="0.12388 0.023259 -0.000397"/>
+      <geometry>
+        <cylinder radius="0.01407" length="0.23419"/>
+      </geometry>
+    </visual> -->
+    <collision name="LF_calf_collision1">
+      <origin rpy="3.13390 -0.00000 -0.00000" xyz="-0.00002 -0.00062 0.00280"/>
+      <geometry>
+        <cylinder radius="0.03718" length="0.04401"/>
+      </geometry>
+    </collision>
+    <collision name="LF_calf_collision2">
+      <origin rpy="0 1.5696003 -0.2349998" xyz="0.12388 0.023259 -0.000397"/>
+      <geometry>
+        <cylinder radius="0.01407" length="0.23419"/>
+      </geometry>
+    </collision>
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/LF_KNEE.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint
+    name="LF_KFE"
+    type="revolute">
+    <origin
+      xyz="0.2695 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="LF_HIP" />
+    <child
+      link="LF_KNEE" />
+    <axis
+      xyz="0 0 1" />
+    <dynamics damping="0.0" friction="0.0"/>
+    <limit effort="45" lower="-3.141592653589793" upper="1.17453292519943295" velocity="45"/>
+  </joint>
+  <link name="LF_FOOT">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.02"/>
+      </geometry>
+      <!-- <material name="orange"/> -->
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.02"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.06"/>
+      <inertia ixx="9.600000000000001e-06" ixy="0.0" ixz="0.0" iyy="9.600000000000001e-06" iyz="0.0" izz="9.600000000000001e-06"/>
+    </inertial>
+  </link>
+  <joint name="FL_foot_fixed" type="fixed">
+    <origin rpy="0 0 0" xyz="0.27 0 0"/>
+    <parent link="LF_KNEE"/>
+    <child link="LF_FOOT"/>
+  </joint>
+  <transmission name="LF_HAA_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="LF_HAA">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="LF_HAA_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="LF_HFE_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="LF_HFE">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="LF_HFE_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="LF_KFE_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="LF_KFE">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="LF_KFE_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <link
+    name="LH_ABAD">
+    <inertial>
+      <origin
+        xyz="0.025819 -7.2618E-08 0.052428"
+        rpy="0 0 0" />
+      <mass
+        value="1.9747" />
+      <inertia
+        ixx="0.0022447"
+        ixy="9.2291E-09"
+        ixz="-0.00015635"
+        iyy="0.0032013"
+        iyz="1.7056E-11"
+        izz="0.0030774" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/LH_ABAD.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <!-- <visual name="LH_hip_visual1">
+      <origin rpy="-1.57080 -0.00000 1.57080" xyz="-0.00291 -0.00000 0.05744"/>
+      <geometry>
+        <cylinder radius="0.04850" length="0.05035"/>
+      </geometry>
+    </visual>
+    <visual name="LH_hip_visual2">
+      <origin rpy="-1.57080 -0.00000 1.57080" xyz="0.05325 -0.00000 0.05744"/>
+      <geometry>
+        <cylinder radius="0.04850" length="0.05035"/>
+      </geometry>
+    </visual> -->
+    <collision name="LH_hip_collision1">
+      <origin rpy="-1.57080 -0.00000 1.57080" xyz="-0.00291 -0.00000 0.05744"/>
+      <geometry>
+        <cylinder radius="0.04850" length="0.05035"/>
+      </geometry>
+    </collision>
+    <collision name="LH_hip_collision2">
+      <origin rpy="-1.57080 -0.00000 1.57080" xyz="0.05325 -0.00000 0.05744"/>
+      <geometry>
+        <cylinder radius="0.04850" length="0.05035"/>
+      </geometry>
+    </collision>
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/LH_ABAD.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint
+    name="LH_HAA"
+    type="revolute">
+    <origin
+      xyz="-0.241 0.055 0"
+      rpy="-1.5708 0 1.5708" />
+    <parent
+      link="base" />
+    <child
+      link="LH_ABAD" />
+    <axis
+      xyz="0 0 -1" />
+    <dynamics damping="0.0" friction="0.0"/>
+    <limit effort="35" lower="-0.7853981633974483" upper="0.7853981633974483" velocity="45"/>
+  </joint>
+  <link
+    name="LH_HIP">
+    <inertial>
+      <origin
+        xyz="0.11665 -4.7257E-06 0.0035029"
+        rpy="0 0 0" />
+      <mass
+        value="1.0489" />
+      <inertia
+        ixx="0.0006063"
+        ixy="-4.3731E-07"
+        ixz="4.3929E-05"
+        iyy="0.012351"
+        iyz="-1.2361E-08"
+        izz="0.012546" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/LH_HIP.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <!-- <visual name="LH_thigh_visual1">
+      <origin rpy="-0.00752 0.00000 -3.14159" xyz="0.00031 -0.00001 0.00374"/>
+      <geometry>
+        <cylinder radius="0.04400" length="0.04595"/>
+      </geometry>
+    </visual>
+    <visual name="LH_thigh_visual2">
+      <origin rpy="3.13340 -0.00001 0.00001" xyz="0.13941 -0.00002 0.00258"/>
+      <geometry>
+        <box size="0.18382 0.05465 0.04415"/>
+      </geometry>
+    </visual> -->
+    <collision name="LH_thigh_collision1">
+      <origin rpy="-0.00752 0.00000 -3.14159" xyz="0.00031 -0.00001 0.00374"/>
+      <geometry>
+        <cylinder radius="0.04400" length="0.04595"/>
+      </geometry>
+    </collision>
+    <collision name="LH_thigh_collision2">
+      <origin rpy="3.13340 -0.00001 0.00001" xyz="0.13941 -0.00002 0.00258"/>
+      <geometry>
+        <box size="0.18382 0.05465 0.04415"/>
+      </geometry>
+    </collision>
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/LH_HIP.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint
+    name="LH_HFE"
+    type="revolute">
+    <origin
+      xyz="0.12545 0 0.055499"
+      rpy="1.5708 0 1.5708" />
+    <parent
+      link="LH_ABAD" />
+    <child
+      link="LH_HIP" />
+    <axis
+      xyz="0 0 1" />
+    <dynamics damping="0.0" friction="0.0"/>
+    <limit effort="35" lower="-0.8726646259971648" upper="1.7453292519943295" velocity="45"/>
+  </joint>
+  <link
+    name="LH_KNEE">
+    <inertial>
+      <origin
+        xyz="0.063196 0.011258 -3.1352E-08"
+        rpy="0 0 0" />
+      <mass
+        value="0.39106" />
+      <inertia
+        ixx="0.00023075"
+        ixy="0.00012831"
+        ixz="-6.1434E-09"
+        iyy="0.0036579"
+        iyz="1.8119E-09"
+        izz="0.003834" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/LH_KNEE.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.65882 0.61961 0.56078 1" />
+      </material>
+    </visual>
+    <!-- <visual name="LH_calf_visual1">
+      <origin rpy="0.00204 0.00000 -3.14159" xyz="-0.00002 0.00065 0.00279"/>
+      <geometry>
+        <cylinder radius="0.03718" length="0.04401"/>
+      </geometry>
+    </visual>
+    <visual name="LH_calf_visual2">
+      <origin rpy="0 -1.5690358 -0.2356188" xyz="0.12388 0.023259 -0.000397"/>
+      <geometry>
+        <cylinder radius="0.01407" length="0.23419"/>
+      </geometry>
+    </visual> -->
+    <collision name="LH_calf_collision1">
+      <origin rpy="0.00204 0.00000 -3.14159" xyz="-0.00002 0.00065 0.00279"/>
+      <geometry>
+        <cylinder radius="0.03718" length="0.04401"/>
+      </geometry>
+    </collision>
+    <collision name="LH_calf_collision2">
+      <origin rpy="0 -1.5690358 -0.2356188" xyz="0.12388 0.023259 -0.000397"/>
+      <geometry>
+        <cylinder radius="0.01407" length="0.23419"/>
+      </geometry>
+    </collision>
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/LH_KNEE.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint
+    name="LH_KFE"
+    type="revolute">
+    <origin
+      xyz="0.2695 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="LH_HIP" />
+    <child
+      link="LH_KNEE" />
+    <axis
+      xyz="0 0 1" />
+    <dynamics damping="0.0" friction="0.0"/>
+    <limit effort="45" lower="-3.141592653589793" upper="1.17453292519943295" velocity="45"/>
+  </joint>
+  <link name="LH_FOOT">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.02"/>
+      </geometry>
+      <!-- <material name="orange"/> -->
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.02"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.06"/>
+      <inertia ixx="9.600000000000001e-06" ixy="0.0" ixz="0.0" iyy="9.600000000000001e-06" iyz="0.0" izz="9.600000000000001e-06"/>
+    </inertial>
+  </link>
+  <joint name="FH_foot_fixed" type="fixed">
+    <origin rpy="0 0 0" xyz="0.27 0 0"/>
+    <parent link="LH_KNEE"/>
+    <child link="LH_FOOT"/>
+  </joint>
+  <transmission name="LH_HAA_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="LH_HAA">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="LH_HAA_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="LH_HFE_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="LH_HFE">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="LH_HFE_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="LH_KFE_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="LH_KFE">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="LH_KFE_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <link
+    name="RF_ABAD">
+    <inertial>
+      <origin
+        xyz="0.025819 -7.2624E-08 0.052428"
+        rpy="0 0 0" />
+      <mass
+        value="1.9747" />
+      <inertia
+        ixx="0.0022447"
+        ixy="9.2291E-09"
+        ixz="-0.00015635"
+        iyy="0.0032013"
+        iyz="1.7069E-11"
+        izz="0.0030774" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/RF_ABAD.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <!-- <visual name="RF_hip_visual1">
+      <origin rpy="-1.57080 0.00000 -1.57080" xyz="-0.00291 -0.00000 0.05744"/>
+      <geometry>
+        <cylinder radius="0.04850" length="0.05035"/>
+      </geometry>
+    </visual>
+    <visual name="RF_hip_visual2">
+      <origin rpy="-1.57080 0.00000 -1.57080" xyz="0.05325 -0.00000 0.05744"/>
+      <geometry>
+        <cylinder radius="0.04850" length="0.05035"/>
+      </geometry>
+    </visual> -->
+    <collision name="RF_hip_collision1">
+      <origin rpy="-1.57080 0.00000 -1.57080" xyz="-0.00291 -0.00000 0.05744"/>
+      <geometry>
+        <cylinder radius="0.04850" length="0.05035"/>
+      </geometry>
+    </collision>
+    <collision name="RF_hip_collision2">
+      <origin rpy="-1.57080 0.00000 -1.57080" xyz="0.05325 -0.00000 0.05744"/>
+      <geometry>
+        <cylinder radius="0.04850" length="0.05035"/>
+      </geometry>
+    </collision>
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/RF_ABAD.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint
+    name="RF_HAA"
+    type="revolute">
+    <origin
+      xyz="0.241 -0.055 0"
+      rpy="-1.5708 0 -1.5708" />
+    <parent
+      link="base" />
+    <child
+      link="RF_ABAD" />
+    <axis
+      xyz="0 0 -1" />
+    <dynamics damping="0.0" friction="0.0"/>
+    <limit effort="35" lower="-0.7853981633974483" upper="0.7853981633974483" velocity="45"/>
+  </joint>
+  <link
+    name="RF_HIP">
+    <inertial>
+      <origin
+        xyz="0.11665 -4.7268E-06 0.0035029"
+        rpy="0 0 0" />
+      <mass
+        value="1.0489" />
+      <inertia
+        ixx="0.0006063"
+        ixy="-4.3744E-07"
+        ixz="4.3929E-05"
+        iyy="0.012351"
+        iyz="-1.2365E-08"
+        izz="0.012546" />
+    </inertial>
+    <!-- <visual name="RF_thigh_visual1">
+      <origin rpy="0.00057 -0.00000 0.00000" xyz="0.00031 0.00001 0.00374"/>
+      <geometry>
+        <cylinder radius="0.04400" length="0.04596"/>
+      </geometry>
+    </visual>
+    <visual name="RF_thigh_visual2">
+      <origin rpy="-0.01586 -0.00000 -0.00000" xyz="0.13941 0.00000 0.00258"/>
+      <geometry>
+        <box size="0.18382 0.05465 0.04415"/>
+      </geometry>
+    </visual> -->
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/RF_HIP.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision name="RF_thigh_collision1">
+      <origin rpy="0.00057 -0.00000 0.00000" xyz="0.00031 0.00001 0.00374"/>
+      <geometry>
+        <cylinder radius="0.04400" length="0.04596"/>
+      </geometry>
+    </collision>
+    <collision name="RF_thigh_collision2">
+      <origin rpy="-0.01586 -0.00000 -0.00000" xyz="0.13941 0.00000 0.00258"/>
+      <geometry>
+        <box size="0.18382 0.05465 0.04415"/>
+      </geometry>
+    </collision>
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/RF_HIP.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint
+    name="RF_HFE"
+    type="revolute">
+    <origin
+      xyz="0.12545 0 0.055499"
+      rpy="1.5708 0 1.5708" />
+    <parent
+      link="RF_ABAD" />
+    <child
+      link="RF_HIP" />
+    <axis
+      xyz="0 0 -1" />
+    <dynamics damping="0.0" friction="0.0"/>
+    <limit effort="35" lower="-0.8726646259971648" upper="1.7453292519943295" velocity="45"/>
+  </joint>
+  <link
+    name="RF_KNEE">
+    <inertial>
+      <origin
+        xyz="0.063196 -0.011258 3.1352E-08"
+        rpy="0 0 0" />
+      <mass
+        value="0.39106" />
+      <inertia
+        ixx="0.00023075"
+        ixy="-0.00012831"
+        ixz="6.1434E-09"
+        iyy="0.0036579"
+        iyz="1.8119E-09"
+        izz="0.003834" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/RF_KNEE.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.65882 0.61961 0.56078 1" />
+      </material>
+    </visual>
+    <!-- <visual name="RF_calf_visual1">
+      <origin rpy="-3.13390 -0.00000 0.00000" xyz="-0.00002 0.00062 0.00280"/>
+      <geometry>
+        <cylinder radius="0.03718" length="0.04401"/>
+      </geometry>
+    </visual>
+    <visual name="RF_calf_visual2">
+      <origin rpy="0 1.5690358 0.2356188" xyz="0.12388 -0.023259 -0.000397"/>
+      <geometry>
+        <cylinder radius="0.01407" length="0.23419"/>
+      </geometry>
+    </visual> -->
+    <collision name="RF_calf_collision1">
+      <origin rpy="-3.13390 -0.00000 0.00000" xyz="-0.00002 0.00062 0.00280"/>
+      <geometry>
+        <cylinder radius="0.03718" length="0.04401"/>
+      </geometry>
+    </collision>
+    <collision name="RF_calf_collision2">
+      <origin rpy="0 1.5690358 0.2356188" xyz="0.12388 -0.023259 -0.000397"/>
+      <geometry>
+        <cylinder radius="0.01407" length="0.23419"/>
+      </geometry>
+    </collision>
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/RF_KNEE.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint
+    name="RF_KFE"
+    type="revolute">
+    <origin
+      xyz="0.2695 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="RF_HIP" />
+    <child
+      link="RF_KNEE" />
+    <axis
+      xyz="0 0 -1" />
+    <dynamics damping="0.0" friction="0.0"/>
+    <limit effort="45" lower="-3.141592653589793" upper="1.17453292519943295" velocity="45"/>
+  </joint>
+  <link name="RF_FOOT">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.02"/>
+      </geometry>
+      <!-- <material name="orange"/> -->
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.02"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.06"/>
+      <inertia ixx="9.600000000000001e-06" ixy="0.0" ixz="0.0" iyy="9.600000000000001e-06" iyz="0.0" izz="9.600000000000001e-06"/>
+    </inertial>
+  </link>
+  <joint name="RF_foot_fixed" type="fixed">
+    <origin rpy="0 0 0" xyz="0.27 0 0"/>
+    <parent link="RF_KNEE"/>
+    <child link="RF_FOOT"/>
+  </joint>
+  <transmission name="RF_HAA_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RF_HAA">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RF_HAA_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="RF_HFE_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RF_HFE">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RF_HFE_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="RF_KFE_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RF_KFE">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RF_KFE_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <link
+    name="RH_ABAD">
+    <inertial>
+      <origin
+        xyz="0.025819 -7.2624E-08 0.052428"
+        rpy="0 0 0" />
+      <mass
+        value="1.9747" />
+      <inertia
+        ixx="0.0022447"
+        ixy="9.2291E-09"
+        ixz="-0.00015635"
+        iyy="0.0032013"
+        iyz="1.7069E-11"
+        izz="0.0030774" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/RH_ABAD.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <!-- <visual name="RH_hip_visual1">
+      <origin rpy="1.57080 0.00000 1.57080" xyz="-0.00291 0.00000 0.05744"/>
+      <geometry>
+        <cylinder radius="0.04850" length="0.05035"/>
+      </geometry>
+    </visual>
+    <visual name="RH_hip_visual2">
+      <origin rpy="1.57080 0.00000 1.57080" xyz="0.05325 0.00000 0.05744"/>
+      <geometry>
+        <cylinder radius="0.04850" length="0.05035"/>
+      </geometry>
+    </visual> -->
+    <collision name="RH_hip_collision1">
+      <origin rpy="1.57080 0.00000 1.57080" xyz="-0.00291 0.00000 0.05744"/>
+      <geometry>
+        <cylinder radius="0.04850" length="0.05035"/>
+      </geometry>
+    </collision>
+    <collision name="RH_hip_collision2">
+      <origin rpy="1.57080 0.00000 1.57080" xyz="0.05325 0.00000 0.05744"/>
+      <geometry>
+        <cylinder radius="0.04850" length="0.05035"/>
+      </geometry>
+    </collision>
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/RH_ABAD.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint
+    name="RH_HAA"
+    type="revolute">
+    <origin
+      xyz="-0.241 -0.055 0"
+      rpy="1.5708 0 -1.5708" />
+    <parent
+      link="base" />
+    <child
+      link="RH_ABAD" />
+    <axis
+      xyz="0 0 -1" />
+    <dynamics damping="0.0" friction="0.0"/>
+    <limit effort="35" lower="-0.7853981633974483" upper="0.7853981633974483" velocity="45"/>
+  </joint>
+  <link
+    name="RH_HIP">
+    <inertial>
+      <origin
+        xyz="0.11665 -4.7268E-06 0.0035029"
+        rpy="0 0 0" />
+      <mass
+        value="1.0489" />
+      <inertia
+        ixx="0.0006063"
+        ixy="-4.3744E-07"
+        ixz="4.3929E-05"
+        iyy="0.012351"
+        iyz="-1.2365E-08"
+        izz="0.012546" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/RH_HIP.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <!-- <visual name="RH_thigh_visual1">
+      <origin rpy="-0.00000 0.00000 3.14159" xyz="0.00031 0.00001 0.00374"/>
+      <geometry>
+        <cylinder radius="0.04400" length="0.04595"/>
+      </geometry>
+    </visual>
+    <visual name="RH_thigh_visual2">
+      <origin rpy="-3.13340 -0.00001 -0.00001" xyz="0.13941 0.00002 0.00257"/>
+      <geometry>
+        <box size="0.18382 0.05465 0.04415"/>
+      </geometry>
+    </visual> -->
+    <collision name="RH_thigh_collision1">
+      <origin rpy="-0.00000 0.00000 3.14159" xyz="0.00031 0.00001 0.00374"/>
+      <geometry>
+        <cylinder radius="0.04400" length="0.04595"/>
+      </geometry>
+    </collision>
+    <collision name="RH_thigh_collision2">
+      <origin rpy="-3.13340 -0.00001 -0.00001" xyz="0.13941 0.00002 0.00257"/>
+      <geometry>
+        <box size="0.18382 0.05465 0.04415"/>
+      </geometry>
+    </collision>
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/RH_HIP.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint
+    name="RH_HFE"
+    type="revolute">
+    <origin
+      xyz="0.12545 0 0.055499"
+      rpy="-1.5708 0 -1.5708" />
+    <parent
+      link="RH_ABAD" />
+    <child
+      link="RH_HIP" />
+    <axis
+      xyz="0 0 -1" />
+    <dynamics damping="0.0" friction="0.0"/>
+    <limit effort="35" lower="-0.8726646259971648" upper="1.7453292519943295" velocity="45"/>
+  </joint>
+  <link
+    name="RH_KNEE">
+    <inertial>
+      <origin
+        xyz="0.063196 -0.011258 3.1352E-08"
+        rpy="0 0 0" />
+      <mass
+        value="0.39106" />
+      <inertia
+        ixx="0.00023075"
+        ixy="-0.00012831"
+        ixz="6.1434E-09"
+        iyy="0.0036579"
+        iyz="1.8119E-09"
+        izz="0.003834" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/RH_KNEE.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.65882 0.61961 0.56078 1" />
+      </material>
+    </visual>
+    <!-- <visual name="RH_calf_visual1">
+      <origin rpy="-0.00204 0.00000 3.14159" xyz="-0.00002 -0.00065 0.00279"/>
+      <geometry>
+        <cylinder radius="0.03718" length="0.04401"/>
+      </geometry>
+    </visual>
+    <visual name="RH_calf_visual2">
+      <origin rpy="0 1.5690358 0.235619" xyz="0.12388 -0.023259 -0.000397"/>
+      <geometry>
+        <cylinder radius="0.01407" length="0.23419"/>
+      </geometry>
+    </visual> -->
+    <collision name="RH_calf_collision1">
+      <origin rpy="-0.00204 0.00000 3.14159" xyz="-0.00002 -0.00065 0.00279"/>
+      <geometry>
+        <cylinder radius="0.03718" length="0.04401"/>
+      </geometry>
+    </collision>
+    <collision name="RH_calf_collision2">
+      <origin rpy="0 1.5690358 0.235619" xyz="0.12388 -0.023259 -0.000397"/>
+      <geometry>
+        <cylinder radius="0.01407" length="0.23419"/>
+      </geometry>
+    </collision>
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sirius_belt/meshes/RH_KNEE.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint
+    name="RH_KFE"
+    type="revolute">
+    <origin
+      xyz="0.2695 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="RH_HIP" />
+    <child
+      link="RH_KNEE" />
+    <axis
+      xyz="0 0 -1" />
+    <dynamics damping="0.0" friction="0.0"/>
+    <limit effort="45" lower="-3.141592653589793" upper="1.17453292519943295" velocity="45"/>
+  </joint>
+  <link name="RH_FOOT">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.02"/>
+      </geometry>
+      <!-- <material name="orange"/> -->
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.02"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.06"/>
+      <inertia ixx="9.600000000000001e-06" ixy="0.0" ixz="0.0" iyy="9.600000000000001e-06" iyz="0.0" izz="9.600000000000001e-06"/>
+    </inertial>
+  </link>
+  <joint name="RH_foot_fixed" type="fixed">
+    <origin rpy="0 0 0" xyz="0.27 0 0"/>
+    <parent link="RH_KNEE"/>
+    <child link="RH_FOOT"/>
+  </joint>
+  <transmission name="RH_HAA_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RH_HAA">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RH_HAA_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="RH_HFE_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RH_HFE">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RH_HFE_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="RH_KFE_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RH_KFE">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RH_KFE_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+</robot>

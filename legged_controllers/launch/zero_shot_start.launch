@@ -1,0 +1,20 @@
+<launch>
+    <arg name="robot_type" default="sirius_belt" doc="Robot type: [sirius_mini, sirius_mid, sirius_belet, sirius_plus]"/>
+    <arg name="real_robot" default="true" doc="true/false"/>
+    <arg name="z_pos" default="0.3" doc="initial position in gazebo"/>
+    <arg name="add_laser" default="false" doc="Add the velodyne-16 simulation or not"/>
+
+    <group if="$(arg real_robot)">
+        <include file="$(find legged_sirius_hw)/launch/legged_sirius_hw.launch" >
+            <arg name="robot_type" value="$(arg robot_type)"/>
+        </include>
+    </group>
+
+    <group unless="$(arg real_robot)">
+        <include file="$(find legged_sirius_description)/launch/empty_world.launch">
+            <arg name="robot_type" value="$(arg robot_type)"/>
+            <arg name="z_pos" value="$(arg z_pos)"/>
+            <arg name="add_laser" value="$(arg add_laser)"/>
+        </include>
+    </group>
+</launch>

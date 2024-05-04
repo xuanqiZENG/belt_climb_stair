@@ -1,0 +1,12 @@
+<launch>
+    <arg name="robot_type" default="go1" doc="Robot type: [a1, aliengo, go1, laikago]"/>
+
+    <param name="legged_robot_description" command="cat /tmp/legged_control/go1.urdf"/>
+    <!-- <node name="generate_urdf" pkg="legged_common" type="generate_urdf.sh" output="screen"
+          args="$(find legged_unitree_description)/urdf/robot.xacro $(arg robot_type)"/> -->
+
+    <rosparam file="$(find legged_unitree_hw_free)/config/$(arg robot_type).yaml" command="load"/>
+
+    <param name="robot_type" value="$(arg robot_type)"/>
+    <include file="$(find legged_unitree_hw_free)/launch/$(arg robot_type).launch"/>
+</launch>

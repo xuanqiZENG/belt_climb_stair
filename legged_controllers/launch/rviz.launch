@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+
+<launch>
+    <arg name="urdf_file" default="$(find sirius_belt)/urdf/sirius_belt.urdf"/>
+    <param name="sirius_belt" textfile="$(arg urdf_file)"/>
+      <arg name="rvizconfig" default="$(find legged_controllers)/launch/legged_robot.rviz" />
+      <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rvizconfig)" output="screen" />
+</launch>

@@ -1,0 +1,9 @@
+struct ros_lowstate_lcmt
+{
+    float q[12];
+    float qd[12];
+    float omegaBody[3];
+    float quat[4];
+    float aBody[3];
+    float current_state;
+}

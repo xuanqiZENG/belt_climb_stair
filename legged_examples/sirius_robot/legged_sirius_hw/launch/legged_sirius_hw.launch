@@ -1,0 +1,20 @@
+<launch>
+    <arg name="robot_type" default="sirius_belt" doc="Robot type: [sirius_mini,sirius_belt]"/>
+
+    <!-- <param name="legged_robot_description" command="$(find xacro)/xacro $(find legged_sirius_description)/urdf/robot.xacro
+       robot_type:=$(arg robot_type)
+    "/> -->
+    <!-- <param name="legged_robot_description" value="$(find sirius_belt)/urdf/sirius_belt.urdf"/> -->
+    <param name="legged_robot_description" command="cat $(find sirius_belt)/urdf/sirius_belt.urdf"/>
+    <!-- <node name="generate_urdf" pkg="legged_common" type="generate_urdf.sh" output="screen"
+          args="$(find legged_sirius_description)/urdf/robot.xacro $(arg robot_type)"/> -->
+
+    <node name="generate_lcm_types" pkg="legged_sirius_hw" type="make_types.sh" output="screen"/>
+
+    <rosparam file="$(find legged_sirius_hw)/config/$(arg robot_type).yaml" command="load"/>
+
+    <param name="robot_type" value="$(arg robot_type)"/>
+    <node name="legged_sirius_hw" pkg="legged_sirius_hw" type="legged_sirius_hw" respawn="false"
+          clear_params="true" output="screen"/>
+
+</launch>
